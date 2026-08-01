@@ -1,8 +1,27 @@
 aid: pepper-content
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pepper-content.png
 name: Pepper Content
-description: 'Pepper Content is a company surfaced as a portfolio company of bessemer-venture-partners
-  and added to the API Evangelist network as a stub for enrichment. Sector: ai-ml. This profile is a lead
-  awaiting the enrichment pipeline.'
+description: 'Pepper (formerly Pepper Content, peppercontent.io, now pepper.inc) is a
+  content-led growth platform that combines content strategy, AI technology, and a network
+  of subject-matter-expert creators to help brands build predictable organic growth across
+  search (SEO), generative-engine optimization (GEO), social, and creative. Its offerings
+  span SEO/GEO visibility, expert-produced content (ebooks, whitepapers, blogs, thought
+  leadership), creative and video production, and agentic AI workflows that automate content
+  operations. The company reports serving 2,500+ brands including Amazon, Google, Atlassian,
+  and HSBC. It is backed by Bessemer Venture Partners. As of this enrichment pass, Pepper
+  exposes no public developer platform, API documentation, or machine-readable API surface;
+  it is a services-and-software marketing platform with product access behind login/demo.'
 url: https://raw.githubusercontent.com/api-evangelist/pepper-content/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -12,10 +31,16 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
 - Ai Ml
+- Content Marketing
+- SEO
+- Generative Engine Optimization
+- Content Strategy
+- Creative
+- Marketing
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -24,4 +49,23 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://www.peppercontent.io/
+  url: https://www.pepper.inc/
+- type: Blog
+  url: https://www.pepper.inc/blog/
+- type: TermsOfService
+  url: https://www.pepper.inc/terms/
+- type: PrivacyPolicy
+  url: https://www.pepper.inc/privacy/
+- type: SignUp
+  url: https://www.pepper.inc/book-a-demo/
+- type: Login
+  url: https://www.pepper.inc/login/
+- type: DomainSecurity
+  url: security/pepper-content-domain-security.yml
+- type: WellKnown
+  url: well-known/pepper-content-well-known.yml
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 2
+  pass: local-v1

@@ -1,0 +1,15 @@
+generated: '2026-07-20'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.pepper.inc
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 29 04:27:14 2026 GMT
+  hsts: false
+domains:
+- domain: pepper.inc
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false
