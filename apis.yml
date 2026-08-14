@@ -19,9 +19,13 @@ description: 'Pepper (formerly Pepper Content, peppercontent.io, now pepper.inc)
   span SEO/GEO visibility, expert-produced content (ebooks, whitepapers, blogs, thought
   leadership), creative and video production, and agentic AI workflows that automate content
   operations. The company reports serving 2,500+ brands including Amazon, Google, Atlassian,
-  and HSBC. It is backed by Bessemer Venture Partners. As of this enrichment pass, Pepper
-  exposes no public developer platform, API documentation, or machine-readable API surface;
-  it is a services-and-software marketing platform with product access behind login/demo.'
+  and HSBC. It is backed by Bessemer Venture Partners. Pepper runs a real first-party API
+  gateway at hub.peppercontent.io (Kong 3.6.1) fronting a pepper-editor-service, a
+  user-service and an atlas-service, and its openapi.json route exists but answers 401
+  "Session Expired" to anyone without a product session — so the contract is gated, not
+  absent. Pepper publishes no developer portal, no documentation, no SDK, no pricing and
+  no /.well-known discovery document; the only publicly documented integration surface is
+  a single Zapier trigger, and access is granted through a sales demo.'
 url: https://raw.githubusercontent.com/api-evangelist/pepper-content/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -31,7 +35,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-20'
+modified: '2026-08-13'
 tags:
 - Company
 - Ai Ml
@@ -60,12 +64,44 @@ common:
   url: https://www.pepper.inc/book-a-demo/
 - type: Login
   url: https://www.pepper.inc/login/
+- type: GitHubOrganization
+  url: https://github.com/peppercontent
 - type: DomainSecurity
   url: security/pepper-content-domain-security.yml
-- type: WellKnown
-  url: well-known/pepper-content-well-known.yml
+- type: Conventions
+  url: conventions/pepper-content-conventions.yml
+- type: ErrorCatalog
+  url: errors/pepper-content-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/pepper-content-lifecycle.yml
+- type: Conformance
+  url: conformance/pepper-content-conformance.yml
+- type: Plans
+  url: plans/pepper-content-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/pepper-content-rate-limits.yml
+- type: LLMsTxt
+  url: llms/pepper-content-llms.txt
 x-enrichment:
-  date: '2026-07-20'
-  status: enriched
-  artifacts_added: 2
+  date: '2026-08-13'
+  status: minimal
+  artifacts_added: 9
   pass: local-v1
+x-coverage:
+  state: gated
+  reason: customer-only-docs
+  detail: >-
+    Pepper's own API gateway at hub.peppercontent.io serves an openapi.json route for
+    pepper-editor-service, but it answers 401 UnauthorizedException "Session Expired"
+    to anyone without an active Pepper product session, and there is no developer
+    portal, documentation page or signup anywhere on pepper.inc to obtain one.
+  evidence:
+  - url: https://hub.peppercontent.io/pepper-editor-service/openapi.json
+    status: 401
+  - url: https://hub.peppercontent.io/pepper-editor-service
+    status: 200
+  - url: https://platform.pepper.inc/openapi.json
+    status: 200
+  - url: https://www.pepper.inc/openapi.json
+    status: 404
+  checked: '2026-08-13'
