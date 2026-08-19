@@ -1,0 +1,104 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  live unauthenticated responses from https://hub.peppercontent.io/pepper-editor-service
+  and https://hub.peppercontent.io/pepper-editor-service/openapi.json, 2026-08-13
+note: >-
+  Pepper publishes no developer documentation, so nothing here is quoted from a docs
+  page. Every field below was observed directly on an unauthenticated HTTP response
+  from Pepper's own first-party API gateway. Fields that could not be observed without
+  credentials are recorded as unknown rather than guessed.
+
+surface:
+  gateway: kong/3.6.1
+  gateway_evidence: 'via: kong/3.6.1, 1.1 google'
+  runtime: Express (x-powered-by)
+  host: https://hub.peppercontent.io
+  services_observed:
+  - path: /pepper-editor-service
+    status: 200
+    body: '{"version":"2.2.0","status":"ok"}'
+  - path: /user-service
+    status: 403
+  - path: /atlas-service
+    status: 404
+  public_contract: false
+  contract_note: >-
+    GET /pepper-editor-service/openapi.json returns HTTP 401 with an
+    UnauthorizedException / "Session Expired" body — the route exists on the gateway
+    but the specification is served only to an authenticated product session. This is
+    a gated contract, not an absent one.
+
+authentication:
+  style: session-bearer
+  documented: false
+  evidence: >-
+    401 UnauthorizedException with message "Session Expired" on any unauthenticated
+    request to a protected route. No WWW-Authenticate challenge header is returned, no
+    OAuth authorization-server or protected-resource metadata is served, and no public
+    auth documentation exists.
+  oauth2: not-observed
+  api_keys: not-observed
+
+idempotency:
+  supported: unknown
+  evidence: >-
+    No idempotency key header or parameter could be observed on an unauthenticated
+    request, and Pepper publishes no documentation describing one. NOT asserted — no
+    Idempotency pointer is emitted for this provider.
+
+pagination:
+  style: unknown
+  evidence: no unauthenticated collection endpoint is reachable
+
+request_tracing:
+  supported: true
+  headers:
+  - name: x-request-trace-id
+    origin: application
+    example_shape: 32-character lowercase hex
+  - name: x-kong-request-id
+    origin: gateway
+  latency_headers:
+  - x-kong-upstream-latency
+  - x-kong-proxy-latency
+
+error_envelope:
+  format: custom-json
+  rfc9457: false
+  content_type: application/json; charset=utf-8
+  fields:
+  - code
+  - status
+  - title
+  - message
+  - timestamp
+  observed_example: >-
+    {"code":"Unauthorized","status":401,"title":"UnauthorizedException",
+    "message":"Session Expired","timestamp":"2026-08-13T10:53:02.177Z"}
+  cross_reference: errors/pepper-content-problem-types.yml
+
+versioning:
+  scheme: service-level
+  evidence: >-
+    /pepper-editor-service reports {"version":"2.2.0"} on its health response. No URI
+    version segment, version header, or documented versioning policy was observed.
+  cross_reference: lifecycle/pepper-content-lifecycle.yml
+
+rate_limit_signaling:
+  headers_observed: []
+  note: >-
+    No X-RateLimit-*, RateLimit-*, or Retry-After header appeared on any observed
+    response. Kong is capable of emitting them; this deployment did not on the
+    unauthenticated paths reachable.
+  cross_reference: rate-limits/pepper-content-rate-limits.yml
+
+cors:
+  access_control_allow_origin: '*'
+  observed_on:
+  - https://hub.peppercontent.io/pepper-editor-service
+  - https://platform.pepper.inc/
+
+caching:
+  etag: true
+  evidence: 'weak ETags returned (etag: W/"87-...")'

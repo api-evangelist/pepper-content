@@ -1,0 +1,56 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  live probes of pepper.inc, platform.pepper.inc and hub.peppercontent.io, 2026-08-13.
+  Pepper publishes no versioning, deprecation, SLA or status documentation; every
+  absence below was checked, not assumed.
+versioning:
+  scheme: service-level
+  current: '2.2.0'
+  evidence: >-
+    GET https://hub.peppercontent.io/pepper-editor-service returns
+    {"version":"2.2.0","status":"ok"}. No URI version segment, no version header, and
+    no published versioning policy.
+  docs: null
+deprecation:
+  policy_url: null
+  sunset_header: false
+  evidence: >-
+    No deprecation policy page exists; no Deprecation or Sunset header (RFC 8594) was
+    observed on any response. NOT asserted — no Deprecation pointer is emitted.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  evidence:
+  - url: https://status.pepper.inc
+    status: NXDOMAIN
+  - url: https://www.pepper.inc/status
+    status: 404
+  note: >-
+    No status page is published on any Pepper host. NOT asserted — no StatusPage
+    pointer is emitted.
+changelog:
+  url: null
+  note: >-
+    No dated changelog or release-notes page appears in the 707-URL sitemap at
+    https://www.pepper.inc/sitemap.xml. Product news is published as marketing blog
+    posts only.
+retired_surfaces:
+- host: api.peppertype.ai
+  status: 530
+  cloudflare_error: 1016
+  note: >-
+    Peppertype.AI, Pepper's earlier generative-writing product (still marketed at
+    /peppertype-ai/), had an api.* host whose DNS record now dangles — Cloudflare
+    returns error 1016 (origin DNS error). The www and app hosts for peppertype.ai
+    now serve the pepper.inc marketing site verbatim, so the product has been folded
+    into the Pepper platform and its API host is dead.
+- host: docs.peppercontent.io
+  status: 530
+  cloudflare_error: 1016
+  note: >-
+    A docs subdomain is still delegated but its origin no longer resolves. Whatever
+    documentation lived there is gone; no archived spec is served.
+deprecated_operations: []

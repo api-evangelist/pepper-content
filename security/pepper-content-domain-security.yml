@@ -1,15 +1,53 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: probed
-source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+source: >-
+  live DNS/TLS/HTTP probes, 2026-08-13. www.pepper.inc + pepper.inc from
+  0-working/probe-domain-security.py; platform.pepper.inc, hub.peppercontent.io,
+  www.peppercontent.io and the peppercontent.io domain probed directly this pass after
+  contract discovery surfaced them.
 hosts:
 - host: www.pepper.inc
   https: true
   tls_version: TLSv1.3
-  cert_expires: Aug 29 04:27:14 2026 GMT
+  cert_expires: Oct 27 12:41:45 2026 GMT
   hsts: false
+- host: platform.pepper.inc
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 30 06:43:22 2026 GMT
+  hsts: false
+  role: authenticated platform single-page application (Cloudflare Pages)
+- host: hub.peppercontent.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 17 13:57:29 2026 GMT
+  hsts: false
+  role: first-party API gateway (Kong 3.6.1, Google Cloud upstream)
+- host: www.peppercontent.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov  9 05:07:33 2026 GMT
+  hsts: false
+  role: legacy brand domain, serves the pepper.inc marketing site
 domains:
 - domain: pepper.inc
   dnssec: false
   caa: []
   spf: false
   dmarc: false
+- domain: peppercontent.io
+  dnssec: false
+  caa: []
+  spf: true
+  spf_policy: '-all'
+  dmarc: true
+  dmarc_policy: quarantine
+  note: >-
+    Email authentication is configured on the legacy peppercontent.io domain but NOT on
+    the current primary brand domain pepper.inc, which has neither SPF nor DMARC. The
+    company rebranded onto a domain with weaker email posture than the one it left.
+findings:
+- No host sets HSTS.
+- No domain publishes DNSSEC or CAA records.
+- pepper.inc publishes neither SPF nor DMARC.
+- Every host negotiates TLS 1.3 with a current certificate.

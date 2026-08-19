@@ -1,6 +1,11 @@
-generated: '2026-07-20'
+generated: '2026-08-13'
 method: searched
-source: live probes of https://www.pepper.inc/.well-known/*
+source: live probes of /.well-known/* across every Pepper host discovered this pass
+hosts_probed:
+- https://www.pepper.inc
+- https://www.peppercontent.io
+- https://platform.pepper.inc
+- https://hub.peppercontent.io
 host: https://www.pepper.inc
 documents:
 - path: /.well-known/security.txt
@@ -13,8 +18,59 @@ documents:
   status: 404
 - path: /.well-known/ai-plugin.json
   status: 404
+- path: /.well-known/agent-card.json
+  status: 404
+- path: /.well-known/agent.json
+  status: 404
+other_hosts:
+- host: https://www.peppercontent.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+- host: https://platform.pepper.inc
+  note: >-
+    SPA catch-all. Every path — including every /.well-known/* path, /openapi.json,
+    /graphql, /llms.txt and /mcp — returns the identical 974-byte Cloudflare Pages
+    HTML shell (Vite bundle, <div id="app">). These 200s are NOT documents and are
+    recorded as misses.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: soft-200-html-shell
+  - path: /.well-known/agent-card.json
+    status: 200
+    result: soft-200-html-shell
+  - path: /.well-known/agent.json
+    status: 200
+    result: soft-200-html-shell
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: soft-200-html-shell
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    result: soft-200-html-shell
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    result: soft-200-html-shell
+  - path: /.well-known/api-catalog
+    status: 200
+    result: soft-200-html-shell
+- host: https://hub.peppercontent.io
+  note: The live first-party API gateway (Kong 3.6.1). Returns real 404 JSON/HTML errors, not a shell.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
 notes: >-
-  No /.well-known discovery documents are published. Pepper (pepper.inc) exposes no
-  public API, OAuth authorization server, OIDC configuration, API catalog, or AI plugin
-  manifest as of this pass. No developer/docs/api subdomains resolve
-  (developers/docs/api/developer.pepper.inc all fail to connect).
+  No /.well-known discovery document is served on any Pepper host. Every genuine
+  response is a 404; the only 200s are the platform.pepper.inc single-page-app
+  catch-all, which answers 200 with the same HTML shell for every path and therefore
+  carries no document. Because nothing returned a real document, this probe emits NO
+  WellKnown and NO SecurityTxt pointer in apis.yml — the previously wired WellKnown
+  pointer was removed this pass, since it asserted a surface whose own probe records a
+  404 on every path.

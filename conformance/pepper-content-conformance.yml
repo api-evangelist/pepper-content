@@ -1,0 +1,41 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  live observation of https://hub.peppercontent.io responses and a search of
+  www.pepper.inc for any published compliance, certification or trust program
+standards:
+- id: oauth2
+  conforms: false
+  evidence: >-
+    no oauth2 metadata served; /.well-known/oauth-authorization-server and
+    /.well-known/oauth-protected-resource both 404 on the API gateway
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every Pepper host
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    errors are returned as a custom JSON envelope {code,status,title,message,timestamp}
+    with content-type application/json, not application/problem+json
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on every Pepper host
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no Deprecation or Sunset header observed on any response
+- id: openapi
+  conforms: false
+  evidence: >-
+    the gateway route /pepper-editor-service/openapi.json exists but returns 401 to
+    unauthenticated callers, so no OpenAPI document is published
+- id: cors
+  conforms: true
+  evidence: 'access-control-allow-origin: * returned by the API gateway and the platform app'
+certifications: []
+compliance_programs: []
+compliance_note: >-
+  Pepper publishes no certifications and no compliance program. There is no trust
+  center (trust.pepper.inc does not resolve), no SOC 2 / ISO 27001 / GDPR / HIPAA
+  claim on any page in the 707-URL sitemap, and no security page. NO Compliance and NO
+  TrustCenter pointer is emitted — this is a derived-only conformance record of
+  cross-cutting standards, not evidence of a published compliance posture.

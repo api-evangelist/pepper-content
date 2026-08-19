@@ -1,0 +1,52 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  live unauthenticated responses from https://hub.peppercontent.io, 2026-08-13.
+  Pepper publishes no error reference; this catalog records only errors actually
+  observed on the wire.
+format: custom-json
+rfc9457: false
+envelope:
+  content_type: application/json; charset=utf-8
+  fields:
+  - name: code
+    type: string
+    note: short machine token, e.g. "Unauthorized"
+  - name: status
+    type: integer
+    note: mirrors the HTTP status
+  - name: title
+    type: string
+    note: exception class name, e.g. "UnauthorizedException"
+  - name: message
+    type: string
+    note: human-readable reason, e.g. "Session Expired"
+  - name: timestamp
+    type: string
+    note: ISO 8601 with milliseconds
+problems:
+- status: 401
+  code: Unauthorized
+  title: UnauthorizedException
+  message: Session Expired
+  observed_at: https://hub.peppercontent.io/pepper-editor-service/openapi.json
+  remediation: >-
+    Authenticate with a Pepper product session. There is no public credential-issuance
+    path; access is granted through the Book-a-Demo sales motion.
+- status: 404
+  title: Cannot GET <path>
+  envelope_variant: '{"status":404,"message":"Cannot GET /v3/api-docs","timestamp":"..."}'
+  observed_at: https://hub.peppercontent.io/pepper-editor-service/v3/api-docs
+  note: >-
+    The 404 variant omits code and title, so the envelope is not uniform across the
+    service. Two shapes were observed on the same service.
+- status: 403
+  observed_at: https://hub.peppercontent.io/user-service
+  note: empty body, no envelope
+- status: 400
+  observed_at: https://hub.peppercontent.io/user-service/openapi.json
+  note: empty body, no envelope
+coverage_note: >-
+  Four status codes observed across three services. This is not a complete error
+  catalog and does not claim to be — Pepper publishes no error reference, and the
+  remaining error surface sits behind an authenticated session.

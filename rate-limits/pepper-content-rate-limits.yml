@@ -1,0 +1,24 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  live unauthenticated responses from https://hub.peppercontent.io, 2026-08-13, plus a
+  search of the pepper.inc sitemap for any published limits documentation
+limit_count: 0
+limits: []
+headers_observed: []
+status_on_exhaustion: null
+note: >-
+  Pepper documents no rate limits — there is no developer documentation of any kind to
+  document them in. On the live first-party gateway (Kong 3.6.1 at
+  hub.peppercontent.io) no X-RateLimit-*, RateLimit-*, or Retry-After response header
+  appeared on any observed response, so an agent gets no runtime limit signal either.
+  Kong emits those headers when its rate-limiting plugin is enabled on a route; on the
+  unauthenticated paths reachable here it is not. An honest zero: checked on the wire
+  and in the docs, found nothing.
+evidence:
+- url: https://hub.peppercontent.io/pepper-editor-service
+  status: 200
+  note: response headers carry x-request-trace-id and x-kong-* latency headers, no rate-limit headers
+- url: https://hub.peppercontent.io/pepper-editor-service/openapi.json
+  status: 401
+  note: no Retry-After, no rate-limit headers

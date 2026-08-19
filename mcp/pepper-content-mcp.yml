@@ -1,0 +1,45 @@
+generated: '2026-08-13'
+method: searched
+status: none
+source: >-
+  searched Pepper's own hosts, npm, and the MCP ecosystem for a first-party server;
+  probed https://platform.pepper.inc/mcp and https://hub.peppercontent.io
+server: null
+tools: []
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+note: >-
+  Pepper ships no MCP server of its own — no hosted endpoint, no stdio package, no
+  listing in any MCP registry, and no npm package under a Pepper scope. The
+  /mcp path on platform.pepper.inc returns the SPA HTML shell (the site answers 200
+  with the same shell for every path), which is not an MCP endpoint. No candidate tool
+  list could be derived either, because Pepper publishes no OpenAPI to derive one from.
+  NO MCPServer pointer is emitted for this provider.
+third_party:
+- name: Zapier MCP — Pepper Content
+  url: https://zapier.com/mcp/pepper-content
+  operated_by: Zapier
+  first_party: false
+  note: >-
+    Zapier hosts an MCP proxy in front of its own Pepper Content connector. It is
+    Zapier's server and Zapier's endpoint, built on the Zapier integration below — not
+    a Pepper agent surface — so it earns Pepper no MCP credit.
+- name: Zapier connector — Pepper Content
+  url: https://zapier.com/apps/pepper-content/integrations
+  operated_by: Zapier
+  first_party: false
+  status: 200
+  surface:
+    triggers:
+    - name: New Item Approved
+      description: Triggers when a new item gets approved in Pepper
+    actions: []
+  note: >-
+    The only publicly documented integration surface Pepper has anywhere is a single
+    polling trigger inside Zapier. It implies a private partner API exists, but Pepper
+    publishes neither the contract nor a developer page pointing at it.

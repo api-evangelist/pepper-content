@@ -1,0 +1,20 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.pepper.inc/sitemap.xml
+plan_count: 0
+plans: []
+note: >-
+  Pepper publishes no pricing whatsoever. There is no /pricing page (HTTP 404), and no
+  pricing, plans, or packages URL appears anywhere in the 707-entry sitemap. Every
+  commercial call-to-action on the marketing site and inside the platform shell routes
+  to "Book A Demo" (https://www.pepper.inc/book-a-demo/) or "Log In". This is an
+  enterprise contact-sales motion with no published list price, no tiers, no quotas
+  and no overage schedule — an honest zero, recorded rather than omitted.
+evidence:
+- url: https://www.pepper.inc/pricing/
+  status: 404
+- url: https://www.pepper.inc/book-a-demo/
+  status: 200
+- url: https://www.pepper.inc/sitemap.xml
+  status: 200
+  note: 707 URLs, zero pricing pages

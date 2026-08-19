@@ -1,0 +1,26 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  queried registry.npmjs.org and pypi.org directly; inspected the GitHub org
+  https://github.com/peppercontent; searched the pepper.inc site for SDK/CLI links
+packages: []
+package_count: 0
+note: >-
+  Pepper publishes no client libraries. Nothing exists under a Pepper name on npm or
+  PyPI, no SDK or CLI is linked from the marketing site, and the first-party GitHub
+  organization (github.com/peppercontent, created 2020-04-19, website www.pepper.inc)
+  holds zero public repositories. NO Packages and NO SDKs pointer is emitted — there
+  is no library to point at.
+registries_checked:
+- registry: npm
+  queries: [peppercontent, pepper-content, '@peppercontent/sdk', peppertype]
+  result: 404 on all
+  version: null
+- registry: pypi
+  queries: [peppercontent, pepper-content]
+  result: 404 on all
+  version: null
+- registry: github
+  query: https://github.com/peppercontent
+  result: org exists (HTTP 200), public_repos = 0
+  version: null
